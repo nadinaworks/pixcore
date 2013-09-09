@@ -17,7 +17,7 @@ class AdminFormRenderer implements FormRendererInterface
     {
         switch ($form->getType()) {
             case FormType::MAIN:
-                echo "<div class=\"wrap\">".
+                echo "<div class=\"wrap\">";
                     screen_icon();
                     echo '<h2>'. esc_html( get_admin_page_title() ) .'</h2>';
                     echo '<form method="POST" action="'. esc_url( add_query_arg( array( 'page' => 'pixcore' ), admin_url( 'options-general.php' ) ) ) .'">';

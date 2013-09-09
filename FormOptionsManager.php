@@ -3,10 +3,11 @@ class FormOptionsManager implements FormManagerInterface
 {
 
     private $options = array();
-
+	private $options_key;
     function __construct($name)
     {
-        $this->options = get_option($name);
+	    $this->options_key = $name;
+        $this->options = get_option($this->options_key);
     }
 
 
@@ -39,5 +40,7 @@ class FormOptionsManager implements FormManagerInterface
                 $this->options[$key] = $value;
             }
         }
+
+	    update_option($this->options_key, $this->options);
     }
 }
