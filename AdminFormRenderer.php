@@ -20,7 +20,7 @@ class AdminFormRenderer implements FormRendererInterface
                 echo "<div class=\"wrap\">";
                     screen_icon();
                     echo '<h2>'. esc_html( get_admin_page_title() ) .'</h2>';
-                    echo '<form method="POST" action="'. esc_url( add_query_arg( array( 'page' => 'pixcore' ), admin_url( 'options-general.php' ) ) ) .'">';
+                    echo '<form id="pixcore_form" method="POST" action="'. esc_url( add_query_arg( array( 'page' => 'pixcore' ), admin_url( 'options-general.php' ) ) ) .'">';
                         array_map([$this, 'render'], $form->getChildren());
 	                    echo '<button type="submit" name="submitted" value="submitted">Save</button>';
                     echo "</form>";

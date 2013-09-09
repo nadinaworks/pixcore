@@ -40,7 +40,7 @@ class FormOptionsManager implements FormManagerInterface
                 $this->options[$key] = $value;
             }
         }
-
+	    var_dump($this->options);
 	    update_option($this->options_key, $this->options);
     }
 }
