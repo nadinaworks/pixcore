@@ -1,5 +1,5 @@
 <?php
-class FormOptionsManager implements FormManagerInterface
+class PixCoreFormOptionsManager implements PixCoreFormManagerInterface
 {
 
     private $options = array();
@@ -36,11 +36,10 @@ class FormOptionsManager implements FormManagerInterface
     public function save(array $values)
     {
         foreach ($values as $key => $value) {
-            if (isset($this->options[$key])) {
+//            if (isset($this->options[$key])) {
                 $this->options[$key] = $value;
-            }
+//            }
         }
-	    var_dump($this->options);
 	    update_option($this->options_key, $this->options);
     }
 }

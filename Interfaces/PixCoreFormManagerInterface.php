@@ -1,5 +1,5 @@
 <?php
-interface FormManagerInterface
+interface PixCoreFormManagerInterface
 {
     /**
      * Set field value

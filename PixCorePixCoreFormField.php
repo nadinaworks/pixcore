@@ -3,7 +3,7 @@
 /**
  * Class FormType
  */
-class FormField
+class PixCoreFormField
 {
     /**
      * @var
@@ -17,8 +17,12 @@ class FormField
      * @var array
      */
     protected $attributes = array();
+	/**
+	 * @var PixCoreFormField[]
+	 */
+	protected $main_field = array();
     /**
-     * @var FormField[]
+     * @var PixCoreFormField[]
      */
     protected $children = array();
 
@@ -61,7 +65,7 @@ class FormField
     }
 
     /**
-     * @param \FormField[] $children
+     * @param \PixCoreFormField[] $children
      */
     public function setChildren(array $children)
     {
@@ -69,15 +73,15 @@ class FormField
     }
 
     /**
-     * @param FormField $children
+     * @param PixCoreFormField $children
      */
-    public function addChildren(FormField $children)
+    public function addChildren(PixCoreFormField $children)
     {
         $this->children[] = $children;
     }
 
     /**
-     * @return \FormField[]
+     * @return \PixCoreFormField[]
      */
     public function getChildren()
     {
@@ -122,10 +126,15 @@ class FormField
             if (!isset($element['name'], $element['type'])) {
                 continue;
             }
-            $formElement = new FormField($element['name'], $element['type']);
+            $formElement = new PixCoreFormField($element['name'], $element['type']);
             if (isset($element['attributes']) && is_array($element['attributes'])) {
                 $formElement->setAttributes($element['attributes']);
             }
+
+	        if (isset($element['main_field'])) {
+		        echo 'this is main';
+	        }
+
             if (isset($element['children'])) {
                 $formElement->fromArray($element['children']);
             }

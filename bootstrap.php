@@ -15,12 +15,10 @@ function load_all_files($directory)
     }
 }
 
-
-include_once __DIR__.DIRECTORY_SEPARATOR.'FormField.php';
-include_once __DIR__.DIRECTORY_SEPARATOR.'FormType.php';
-include_once __DIR__.DIRECTORY_SEPARATOR.'Interfaces/FormManagerInterface.php';
-include_once __DIR__.DIRECTORY_SEPARATOR.'Interfaces/FormRendererInterface.php';
-include_once __DIR__.DIRECTORY_SEPARATOR.'FormBuilder.php';
-include_once __DIR__.DIRECTORY_SEPARATOR.'FormOptionsManager.php';
-include_once __DIR__.DIRECTORY_SEPARATOR.'AdminFormRenderer.php';
+include_once __DIR__ . DIRECTORY_SEPARATOR . 'PixCorePixCoreFormField.php';
+include_once __DIR__.DIRECTORY_SEPARATOR.'Interfaces/PixCoreFormManagerInterface.php';
+include_once __DIR__.DIRECTORY_SEPARATOR.'Interfaces/PixCoreFormRendererInterface.php';
+include_once __DIR__ . DIRECTORY_SEPARATOR . 'PixCoreFormBuilder.php';
+include_once __DIR__ . DIRECTORY_SEPARATOR . 'PixCoreFormOptionsManager.php';
+include_once __DIR__ . DIRECTORY_SEPARATOR . 'AdminPixCoreFormRenderer.php';
 
