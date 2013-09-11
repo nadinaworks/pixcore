@@ -18,7 +18,7 @@ class PixcoreHTMLTagImpl implements PixcoreHTMLTag {
 	/**
 	 * @param array config
 	 */
-	static function instance($config) {
+	static function instance($config = null) {
 		$i = new self;
 		$i->configure($config);
 		return $i;
@@ -27,7 +27,7 @@ class PixcoreHTMLTagImpl implements PixcoreHTMLTag {
 	/**
 	 * Apply configuration.
 	 */
-	protected function configure($config) {
+	protected function configure($config = null) {
 		$this->attrs = pixcore::instance('PixcoreMeta', $config);
 	}
 

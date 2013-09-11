@@ -10,10 +10,7 @@
  * @author     Pixel Grade Team
  * @copyright  (c) 2013, Pixel Grade Media
  */
-class PixcoreFormImpl extends PixcoreHTMLTagImpl implements PixcoreForm {
-
-	/** @var array configuration attributes */
-	protected $meta = null;
+class PixcoreFormImpl extends PixcoreHTMLElementImpl implements PixcoreForm {
 
 	/** @var array templates */
 	protected $fields = null;
@@ -35,11 +32,17 @@ class PixcoreFormImpl extends PixcoreHTMLTagImpl implements PixcoreForm {
 			$config = array('template-paths' => array(), 'fields' => array());
 		}
 
-		// invoke htmltag instance
-		parent::configure(array());
-		$this->fields = pixcore::instance('PixcoreMeta', $config['fields']);
-		$this->meta = pixcore::instance('PixcoreMeta', array());
+		// setup default autocomplete
+		$this->autocomplete = pixcore::instance('PixcoreMeta', array());
 
+		// setup fields
+		$this->fields = pixcore::instance('PixcoreMeta', $config['fields']);
+		unset($config['fields']);
+
+		// invoke htmltag instance configuration
+		parent::configure($config);
+
+		// setup paths
 		$this->setmeta('template-paths', $config['template-paths']);
 
 		// @todo CLEANUP the empty action should redirect to the same page but
@@ -58,51 +61,55 @@ class PixcoreFormImpl extends PixcoreHTMLTagImpl implements PixcoreForm {
 	}
 
 	/**
+	 * Note: the field configuration parameter is indented for use when
+	 * invoking fields as part of creating other fields (ie. embeded field
+	 * configuration inside custom fields). It is not meant for overwriting
+	 * configuration and will not accept partial configuration; albeit the
+	 * minimal field configuration is fairly minimal.
+	 *
+	 * @param string field name
+	 * @param array  complete field configuration
 	 * @return string
 	 */
-	function field($fieldname) {
-		$fieldconfig = $this->fields->get($fieldname);
+	function field($fieldname, $fieldconfig = null) {
+		if ($fieldconfig === null) {
+			$fieldconfig = $this->fields->get($fieldname);
+		}
+
 		return pixcore::instance('PixcoreFormField', $fieldconfig)
 			->setmeta('form', $this)
 			->setmeta('name', $fieldname);
 	}
 
-	// Helpers
+	// Autocomplete
 	// ------------------------------------------------------------------------
 
-	/**
-	 * @return mixed value or default
-	 */
-	function getmeta($key, $default = null) {
-		return $this->meta->get($key, $default);
-	}
+	/** @var PixcoreMeta autocomplete */
+	protected $autocomplete = null;
 
 	/**
-	 * @return static $this
-	 */
-	function setmeta($key, $value) {
-		$this->meta->set($key, $value);
-		return $this;
-	}
-
-	/**
-	 * If the key is currently a non-array value it will be converted to an
-	 * array maintaning the previous value (along with the new one).
+	 * Autocomplete meta object passed on by the processor.
 	 *
-	 * @param  string name
-	 * @param  mixed  value
+	 * @param PixcoreMeta autocomplete values
 	 * @return static $this
 	 */
-	function addmeta($name, $value) {
-		$this->meta->add($name, $value);
+	function autocomplete(PixcoreMeta $autocomplete) {
+		$this->autocomplete = $autocomplete;
 		return $this;
 	}
 
 	/**
-	 * @return PixcoreMeta
+	 * Retrieves the value registered for auto-complete. This will not fallback
+	 * to the default value set in the configuration since fields are
+	 * responsible for managing their internal complexity.
+	 *
+	 * Typically the autocomplete values are what the processor passes on to
+	 * the form.
+	 *
+	 * @return mixed
 	 */
-	function meta() {
-		return $this->meta;
+	function autovalue($key, $default = null) {
+		return $this->autocomplete->get($key, $default);
 	}
 
 	// Rendering

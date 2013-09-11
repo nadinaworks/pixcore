@@ -13,6 +13,12 @@
 interface PixcoreFormField extends PixcoreHTMLTag {
 
 	/**
+	 * @param string meta key
+	 * @return boolean true if key exists, false otherwise
+	 */
+	function hasmeta($key);
+
+	/**
 	 * @return mixed value or default
 	 */
 	function getmeta($key, $default = null);

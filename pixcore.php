@@ -55,7 +55,7 @@ class pixcore {
 		return self::instance('PixcoreForm', $config);
 	}
 
-	// Helpers
+	// Paths
 	// ------------------------------------------------------------------------
 
 	/**
@@ -64,6 +64,30 @@ class pixcore {
 	static function corepath() {
 		return dirname(__FILE__).DIRECTORY_SEPARATOR;
 	}
+
+	/** @var string plugin path */
+	protected static $pluginpath = null;
+
+	/**
+	 * @return string path
+	 */
+	static function pluginpath() {
+		if (self::$pluginpath === null) {
+			self::$pluginpath = realpath(self::corepath().'..').DIRECTORY_SEPARATOR;
+		}
+
+		return self::$pluginpath;
+	}
+
+	/**
+	 * Sets a custom plugin path; required in non-standard plugin structures.
+	 */
+	static function setpluginpath($path) {
+		self::$pluginpath = $path;
+	}
+
+	// Helpers
+	// ------------------------------------------------------------------------
 
 	/**
 	 * Recursively finds all files in a directory.
@@ -110,13 +134,31 @@ class pixcore {
 	{
 		$files = self::find_files(rtrim($path, '\\/'));
 
-		sort($files, SORT_ASC);
-
+		$priority_list = array();
 		foreach ($files as $file) {
+			$priority_list[$file] = self::file_priority($file);
+		}
+
+		asort($priority_list, SORT_ASC);
+
+		foreach ($priority_list as $file => $priority) {
 			if (strpos($file, EXT)) {
 				require $file;
 			}
 		}
+	}
+
+	/**
+	 * Priority based on path length and number of directories. Files in the
+	 * same directory have higher priority if their path is shorter; files in
+	 * directories have +100 priority bonus for every directory.
+	 *
+	 * @param  string file path
+	 * @return int
+	 */
+	protected static function file_priority($path) {
+		$path = str_replace('\\', '/', $path);
+		return strlen($path) + substr_count($path, '/') * 100;
 	}
 
 

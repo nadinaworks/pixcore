@@ -1,17 +1,25 @@
 <?php defined('ABSPATH') or die;
 	/* @var PixcoreFormField $field */
 	/* @var PixcoreForm $form */
+	/* @var mixed $default */
 	/* @var string $name */
+	/* @var string $idname */
 	/* @var string $label */
 	/* @var string $desc */
 
 	isset($type) or $type = 'text';
+
+	$attrs = array
+		(
+			'type' => 'text',
+			'value' => $form->autovalue($name)
+		);
 ?>
 
 <div>
 	<p><?php echo $desc ?></p>
 	<label id="<?php echo $name ?>">
-		<?php echo $label ?> <?php echo $field->getmeta('special_sekrit_property', '?') ?>
-		<input <?php echo $field->htmlattributes(array('type' => 'text', 'value' => $form->autovalue($name))) ?>/>
+		<?php echo $label ?>
+		<input <?php echo $field->htmlattributes($attrs) ?>/>
 	</label>
 </div>

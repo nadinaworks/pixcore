@@ -26,12 +26,20 @@ class PixcoreMetaImpl implements PixcoreMeta {
 	}
 
 	/**
+	 * @param string meta key
+	 * @return boolean true if key exists, false otherwise
+	 */
+	function has($key) {
+		return isset($this->metadata[$key]);
+	}
+
+	/**
 	 * @param  string key
 	 * @param  mixed  default
 	 * @return mixed
 	 */
 	function get($key, $default = null) {
-		return isset($this->metadata[$key]) ? $this->metadata[$key] : $default;
+		return $this->has($key) ? $this->metadata[$key] : $default;
 	}
 
 	/**

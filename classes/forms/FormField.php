@@ -10,72 +10,15 @@
  * @author     Pixel Grade Team
  * @copyright  (c) 2013, Pixel Grade Media
  */
-class PixcoreFormFieldImpl extends PixcoreHTMLTagImpl implements PixcoreFormField {
-
-	/** @var array configuration attributes */
-	protected $meta = null;
+class PixcoreFormFieldImpl extends PixcoreHTMLElementImpl implements PixcoreFormField {
 
 	/**
 	 * @param array config
 	 */
-	static function instance($config) {
+	static function instance($config = null) {
 		$i = new self;
 		$i->configure($config);
 		return $i;
-	}
-
-	/**
-	 * Apply configuration.
-	 */
-	protected function configure($config) {
-		if ($config == null) {
-			$config = array('attrs' => array());
-		}
-
-		// invoke htmltag instance
-		parent::configure($config['attrs']);
-
-		// everything else is under the general meta
-		unset($config['attrs']);
-		$this->meta = pixcore::instance('PixcoreMeta', $config);
-	}
-
-	// Helpers
-	// ------------------------------------------------------------------------
-
-	/**
-	 * @return mixed value or default
-	 */
-	function getmeta($key, $default = null) {
-		return $this->meta->get($key, $default);
-	}
-
-	/**
-	 * @return static $this
-	 */
-	function setmeta($key, $value) {
-		$this->meta->set($key, $value);
-		return $this;
-	}
-
-	/**
-	 * If the key is currently a non-array value it will be converted to an
-	 * array maintaning the previous value (along with the new one).
-	 *
-	 * @param  string name
-	 * @param  mixed  value
-	 * @return static $this
-	 */
-	function addmeta($name, $value) {
-		$this->meta->set($name, $value);
-		return $this;
-	}
-
-	/**
-	 * @return PixcoreMeta
-	 */
-	function meta() {
-		return $this->meta;
 	}
 
 	// Rendering
@@ -113,7 +56,7 @@ class PixcoreFormFieldImpl extends PixcoreHTMLTagImpl implements PixcoreFormFiel
 			}
 		}
 
-		throw new Exception('Failed to match any pattern for field ['.$this->getmeta('name').']');
+		throw new Exception('Failed to match any pattern for field ['.$this->getmeta('name').'] of type '.$this->getmeta('type'));
 	}
 
 	/**
@@ -124,9 +67,13 @@ class PixcoreFormFieldImpl extends PixcoreHTMLTagImpl implements PixcoreFormFiel
 		// variables which we wish to expose to template
 		$field = $this; # $this will also work
 		$form = $this->getmeta('form');
-		$name = $this->getmeta('name');
-		$label = $this->getmeta('label');
+		$name = $this->getmeta('name', null);
+		$label = $this->getmeta('label', null);
+		$default = $this->getmeta('default', null);
 		$desc = $this->getmeta('desc', '');
+
+		// cleaned name (names may be "something[]")
+		$idname = preg_replace('/[^a-zA-Z0-9_-]/', '', $name);
 
 		ob_start();
 		include $_template_filepath;

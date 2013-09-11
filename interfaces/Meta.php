@@ -13,6 +13,12 @@
 interface PixcoreMeta {
 
 	/**
+	 * @param string meta key
+	 * @return boolean true if key exists, false otherwise
+	 */
+	function has($key);
+
+	/**
 	 * @return mixed value or default
 	 */
 	function get($key, $default = null);
