@@ -1,4 +1,4 @@
-<?php
+<?php defined('ABSPATH') or die;
 
 /* This file is property of Pixel Grade Media. You may NOT copy, or redistribute
  * it. Please see the license that came with your copy for more information.
@@ -57,6 +57,13 @@ class pixcore {
 
 	// Helpers
 	// ------------------------------------------------------------------------
+
+	/**
+	 * @return string root path for core
+	 */
+	static function corepath() {
+		return dirname(__FILE__).DIRECTORY_SEPARATOR;
+	}
 
 	/**
 	 * Recursively finds all files in a directory.

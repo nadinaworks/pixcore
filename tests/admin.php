@@ -1,7 +1,7 @@
-<?php
+<?php defined('ABSPATH') or die;
 	include 'bootstrap.php';
 	$basepath = dirname(__FILE__).DIRECTORY_SEPARATOR;
-	$templatepath = $basepath.'sample-templates'.DIRECTORY_SEPARATOR;
+	$templatepath = $basepath.'../views/form-partials/';
 	$config = include 'sample-config'.EXT;
 
 	// invoke processor
@@ -25,7 +25,7 @@
 			$conf = array('fields' => array_keys($config['fields']));
 		?>
 
-		<?php echo $f->fieldtemplate($templatepath.'example'.EXT, $conf) ?>
+		<?php echo $f->fieldtemplate($templatepath.'linear'.EXT, $conf) ?>
 
 		<button type="submit">
 			Save

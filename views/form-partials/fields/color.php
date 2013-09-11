@@ -1,4 +1,4 @@
-<?php
+<?php defined('ABSPATH') or die;
 	/* @var PixcoreFormField $field */
 	/* @var PixcoreForm $form */
 	/* @var string $name */

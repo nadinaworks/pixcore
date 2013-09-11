@@ -1,4 +1,4 @@
-<?php
+<?php defined('ABSPATH') or die;
 
 	// ensure EXT is defined
 	if ( ! defined('EXT')) {
