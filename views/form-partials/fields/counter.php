@@ -1,8 +1,8 @@
 <?php defined('ABSPATH') or die;
 	/* @var PixcoreFormField $field */
 	/* @var PixcoreForm $form */
+	/* @var mixed $default */
 	/* @var string $name */
-	/* @var mixed  $default */
 	/* @var string $idname */
 	/* @var string $label */
 	/* @var string $desc */
