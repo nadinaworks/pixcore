@@ -32,6 +32,9 @@ class PixcoreFormImpl extends PixcoreHTMLElementImpl implements PixcoreForm {
 			$config = array('template-paths' => array(), 'fields' => array());
 		}
 
+		// setup errors
+		$this->errors = array();
+
 		// setup default autocomplete
 		$this->autocomplete = pixcore::instance('PixcoreMeta', array());
 
@@ -80,6 +83,34 @@ class PixcoreFormImpl extends PixcoreHTMLElementImpl implements PixcoreForm {
 			->setmeta('form', $this)
 			->setmeta('name', $fieldname);
 	}
+
+	// Errors
+	// ------------------------------------------------------------------------
+
+	/** @var array field errors */
+	protected $errors = null;
+
+	/**
+	 * @return static $this
+	 */
+	function errors($errors) {
+		$this->errors = $errors;
+		return $this;
+	}
+
+	/**
+	 * @param string field name
+	 * @return array error keys with messages
+	 */
+	function errors_for($fieldname) {
+		if (isset($this->errors[$fieldname])) {
+			return $this->errors[$fieldname];
+		}
+		else { // no errors set
+			return array();
+		}
+	}
+
 
 	// Autocomplete
 	// ------------------------------------------------------------------------

@@ -15,3 +15,8 @@
 
 	$classpath = $basepath.'classes'.DIRECTORY_SEPARATOR;
 	pixcore::require_all($classpath);
+
+	// load callbacks
+
+	$callbackpath = $basepath.'callbacks'.DIRECTORY_SEPARATOR;
+	pixcore::require_all($callbackpath);

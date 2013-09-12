@@ -21,6 +21,27 @@ class PixcoreFormFieldImpl extends PixcoreHTMLElementImpl implements PixcoreForm
 		return $i;
 	}
 
+	// Error Handling Helpers
+	// ------------------------------------------------------------------------
+
+	/**
+	 * @return boolean true if field has errors
+	 */
+	function has_errors() {
+		$form = $this->getmeta('form', null);
+		$errors = $form->errors_for($this->getmeta('name'));
+		return ! empty($errors);
+	}
+
+	/**
+	 * @return string first error message
+	 */
+	function one_error() {
+		$form = $this->getmeta('form', null);
+		$errors = $form->errors_for($this->getmeta('name'));
+		return array_shift($errors);
+	}
+
 	// Rendering
 	// ------------------------------------------------------------------------
 
@@ -43,6 +64,8 @@ class PixcoreFormFieldImpl extends PixcoreHTMLElementImpl implements PixcoreForm
 		// the following are the file patterns we look for
 		$patterns = array
 			(
+				'fields/'.$this->getmeta('name'),
+				'fields/'.$this->getmeta('type'),
 				$this->getmeta('name'),
 				$this->getmeta('type')
 			);

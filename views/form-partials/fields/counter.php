@@ -14,16 +14,25 @@
 
 	$attrs = array
 		(
+			'name' => $name,
 			'type' => 'number',
 			'id' => $idname,
 			'value' => $value,
 			'step' => 1,
+			'class' => array(),
 		);
 
 	$is_inline_field = empty($label);
+
+	if ($field->has_errors()) {
+		$error_message = $field->one_error();
+		$attrs['class'][] = 'field-error';
+		$attrs['title'] = "Error: $error_message";
+	}
 ?>
 
 <?php if ($is_inline_field): ?>
+	<?php $attrs['class'][] = 'small-text' ?>
 	<input <?php echo $field->htmlattributes($attrs) ?> class="small-text" />
 <?php else: # standard field ?>
 	<label for="<?php echo $idname ?>">

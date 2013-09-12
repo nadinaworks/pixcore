@@ -55,7 +55,7 @@ class PixcoreHTMLTagImpl implements PixcoreHTMLTag {
 	 */
 	function htmlattributes(array $extra = array()) {
 		$attr_segments = array();
-		$attributes = array_merge($this->attrs->metadata_array(), $extra);
+		$attributes = pixcore::merge($this->attrs->metadata_array(), $extra);
 		foreach ($attributes as $key => $value) {
 			if ($value !== false && $value !== null) {
 				if ( ! empty($value)) {

@@ -12,6 +12,20 @@
  */
 class pixcore {
 
+	/** @var array core defaults */
+	protected static $defaults = null;
+
+	/**
+	 * @return array
+	 */
+	static function defaults() {
+		if (self::$defaults === null) {
+			self::$defaults = include self::corepath().'defaults'.EXT;
+		}
+
+		return self::$defaults;
+	}
+
 	// Simple Dependency Injection Container
 	// ------------------------------------------------------------------------
 
@@ -49,11 +63,24 @@ class pixcore {
 	// ------------------------------------------------------------------------
 
 	/**
+	 * @param array configuration
 	 * @return PixcoreForm
 	 */
-	static function form($config) {
-		return self::instance('PixcoreForm', $config);
+	static function form($config, $processor) {
+		$form = self::instance('PixcoreForm', $config);
+		$form->autocomplete($processor->data());
+		$form->errors($processor->errors());
+		return $form;
 	}
+
+	/**
+	 * @param array configuration
+	 * @return PixcoreProcessor
+	 */
+	static function processor($config) {
+		return self::instance('PixcoreProcessor', $config);
+	}
+
 
 	// Paths
 	// ------------------------------------------------------------------------
@@ -86,8 +113,106 @@ class pixcore {
 		self::$pluginpath = $path;
 	}
 
+
 	// Helpers
 	// ------------------------------------------------------------------------
+
+	/**
+	 * Hirarchical array merge. Will always return an array.
+	 *
+	 * @param  ... arrays
+	 * @return array
+	 */
+	static function merge() {
+		$base = array();
+		$args = func_get_args();
+
+		foreach ($args as $arg) {
+			static::array_merge($base, $arg);
+		}
+
+		return $base;
+	}
+
+	/**
+	 * Overwrites base array with overwrite array.
+	 *
+	 * @param array base
+	 * @param array overwrite
+	 */
+	protected static function array_merge(array &$base, array $overwrite) {
+		foreach ($overwrite as $key => &$value)
+		{
+			if (is_int($key))
+			{
+				// add only if it doesn't exist
+				if ( ! in_array($overwrite[$key], $base))
+				{
+					$base[] = $overwrite[$key];
+				}
+			}
+			// non-int key
+			else if (is_array($value))
+			{
+				if (isset($base[$key]) && is_array($base[$key]))
+				{
+					self::array_merge($base[$key], $value);
+				}
+				else # does not exist or it's a non-array
+				{
+					$base[$key] = $value;
+				}
+			}
+			else # not an array and not numeric key
+			{
+				$base[$key] = $value;
+			}
+		}
+	}
+
+	/**
+	 * @param string callback key
+	 * @return string callback function name
+	 * @throws Exception
+	 */
+	static function callback($key, PixcoreMeta $meta) {
+		$defaults = pixcore::defaults();
+		$default_callbacks = $defaults['callbacks'];
+		$plugin_callbacks = $meta->get('callbacks', array());
+
+		$callbacks = array_merge($default_callbacks, $plugin_callbacks);
+
+		if (isset($callbacks[$key])) {
+			return $callbacks[$key];
+		}
+		else { // missing callback
+			throw new Exception('Missing callback for ['.$key.'].');
+		}
+	}
+
+	/** @var string the translation text domain */
+	protected static $textdomain = 'pixcore_txtd';
+
+	/**
+	 * @return string text domain
+	 */
+	static function textdomain() {
+		return self::$textdomain;
+	}
+
+	/**
+	 * Sets a custom text domain; if null is passed the text domain will revert
+	 * to the default text domain.
+	 */
+	static function settextdomain($textdomain) {
+		if ( ! empty($textdomain)) {
+			self::$textdomain = $textdomain;
+		}
+		else { // null or otherwise empty value
+			// revert to default
+			self::$textdomain = 'pixcore_txtd';
+		}
+	}
 
 	/**
 	 * Recursively finds all files in a directory.
@@ -160,6 +285,5 @@ class pixcore {
 		$path = str_replace('\\', '/', $path);
 		return strlen($path) + substr_count($path, '/') * 100;
 	}
-
 
 } # class

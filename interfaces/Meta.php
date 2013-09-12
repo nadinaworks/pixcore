@@ -43,4 +43,11 @@ interface PixcoreMeta {
 	 */
 	function metadata_array();
 
+	/**
+	 * Shorthand for a calling set on multiple keys.
+	 * 
+	 * @return static $this
+	 */
+	function overwritemeta($overwrites);
+
 } # interface

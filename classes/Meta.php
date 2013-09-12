@@ -89,4 +89,17 @@ class PixcoreMetaImpl implements PixcoreMeta {
 		return $this->metadata;
 	}
 
+	/**
+	 * Shorthand for a calling set on multiple keys.
+	 *
+	 * @return static $this
+	 */
+	function overwritemeta($overwrites) {
+		foreach ($overwrites as $key => $value) {
+			$this->set($key, $value);
+		}
+
+		return $this;
+	}
+
 } # class
