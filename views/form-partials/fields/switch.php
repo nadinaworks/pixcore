@@ -6,6 +6,7 @@
 	/* @var string $idname */
 	/* @var string $label */
 	/* @var string $desc */
+	/* @var string $rendering */
 
 	// [!!] a switch is a checkbox that is only ever either on or off; not to
 	// be confused with a fully functional checkbox which may be many values
