@@ -6,7 +6,7 @@
 	}
 
 	$basepath = dirname(__FILE__).DIRECTORY_SEPARATOR;
-	require $basepath.'pixcore'.EXT;
+	require $basepath.'core'.EXT;
 
 	// load classes
 
