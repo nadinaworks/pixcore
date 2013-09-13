@@ -46,8 +46,8 @@ class PixcoreFormFieldImpl extends PixcoreHTMLElementImpl implements PixcoreForm
 	// ------------------------------------------------------------------------
 
 	/**
-	 * Emulates wordpress template behaviour. First searches for name, then
-	 * searches field type and so on.
+	 * Render field emulates wordpress template behaviour. First searches for
+	 * name, then searches field type and so on.
 	 *
 	 * @return string
 	 */
