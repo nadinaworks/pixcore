@@ -11,15 +11,21 @@
 
 	$attrs = array
 		(
+			'name' => $name,
+			'id' => $idname,
 			'type' => 'text',
 			'value' => $form->autovalue($name)
 		);
 ?>
 
-<div>
-	<p><?php echo $desc ?></p>
-	<label id="<?php echo $name ?>">
-		<?php echo $label ?>
-		<input <?php echo $field->htmlattributes($attrs) ?>/>
-	</label>
-</div>
+<?php if ($rendering == 'inline'): ?>
+	<input <?php echo $field->htmlattributes($attrs) ?>/>
+<?php else: # ?>
+	<div>
+		<p><?php echo $desc ?></p>
+		<label id="<?php echo $name ?>">
+			<?php echo $label ?>
+			<input <?php echo $field->htmlattributes($attrs) ?>/>
+		</label>
+	</div>
+<?php endif; ?>

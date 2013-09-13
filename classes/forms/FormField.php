@@ -94,6 +94,7 @@ class PixcoreFormFieldImpl extends PixcoreHTMLElementImpl implements PixcoreForm
 		$label = $this->getmeta('label', null);
 		$default = $this->getmeta('default', null);
 		$desc = $this->getmeta('desc', '');
+		$rendering = $this->getmeta('rendering', 'standard');
 
 		// cleaned name (names may be "something[]")
 		$idname = preg_replace('/[^a-zA-Z0-9_-]/', '', $name);

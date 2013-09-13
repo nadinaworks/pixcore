@@ -14,8 +14,8 @@
 
 	$attrs = array
 		(
-			'id' => $idname,
 			'name' => $name,
+			'id' => $idname,
 		);
 ?>
 

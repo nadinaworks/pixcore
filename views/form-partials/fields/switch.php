@@ -42,7 +42,11 @@
 
 ?>
 
-<label for="<?php echo $idname ?>">
+<?php if ($rendering == 'inline'): ?>
 	<input <?php echo $field->htmlattributes($attrs) ?> />
-	<?php echo $processed_label ?>
-</label>
+<?php else: # rendering != 'inline' ?>
+	<label for="<?php echo $idname ?>">
+		<input <?php echo $field->htmlattributes($attrs) ?> />
+		<?php echo $processed_label ?>
+	</label>
+<?php endif; ?>
