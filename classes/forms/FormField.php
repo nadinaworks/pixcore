@@ -79,7 +79,7 @@ class PixcoreFormFieldImpl extends PixcoreHTMLElementImpl implements PixcoreForm
 			}
 		}
 
-		throw new Exception('Failed to match any pattern for field ['.$this->getmeta('name').'] of type '.$this->getmeta('type'));
+		throw new Exception('Failed to match any pattern for field ['.$this->getmeta('name').'] of type '.$this->getmeta('type', '[unknown]'));
 	}
 
 	/**
