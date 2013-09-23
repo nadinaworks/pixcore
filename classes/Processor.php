@@ -96,7 +96,7 @@ class PixcoreProcessorImpl implements PixcoreProcessor {
 			);
 
 		try {
-			$option_key = $this->meta->get('plugin-name', null);
+			$option_key = $this->meta->get('settings-key', null);
 
 			if ($option_key === null) {
 				throw new Exception('Missing option_key in plugin configuration.');
@@ -109,7 +109,9 @@ class PixcoreProcessorImpl implements PixcoreProcessor {
 				if (empty($errors)) {
 					$this->preupdate($input);
 					$this->status['dataupdate'] = true;
-					update_option($option_key, $input);
+					$current_values = get_option($option_key);
+					$new_option = array_merge($current_values, $input);
+					update_option($option_key, $new_option);
 					$this->data = pixcore::instance('PixcoreMeta', $input);
 					$this->postupdate($input);
 				}
