@@ -107,9 +107,11 @@ class PixcoreProcessorImpl implements PixcoreProcessor {
 				$errors = $this->validate_input($input);
 
 				if (empty($errors)) {
+					$this->preupdate($input);
 					$this->status['dataupdate'] = true;
 					update_option($option_key, $input);
 					$this->data = pixcore::instance('PixcoreMeta', $input);
+					$this->postupdate($input);
 				}
 				else { // got errors
 					$this->status['errors'] = $errors;
@@ -169,7 +171,7 @@ class PixcoreProcessorImpl implements PixcoreProcessor {
 			if (isset($defaults['cleanup'][$field['type']])) {
 				$cleanup = $defaults['cleanup'][$field['type']];
 			}
-			// check theme defaults
+			// check plugin defaults
 			if (isset($plugin_cleanup[$field['type']])) {
 				$cleanup = array_merge($cleanup, $plugin_cleanup[$field['type']]);
 			}
@@ -263,6 +265,69 @@ class PixcoreProcessorImpl implements PixcoreProcessor {
 		}
 
 		return $this->status['state'] == 'nominal';
+	}
+
+	// ------------------------------------------------------------------------
+	// Hooks
+
+	/**
+	 * Execute preupdate hooks on input.
+	 */
+	protected function preupdate($input)
+	{
+		$defaults = pixcore::defaults();
+		$plugin_hooks = $this->meta->get('processor', array('preupdate' => array(), 'postupdate' => array()));
+
+		// Calculate hooks
+		// ---------------
+
+		$hooks = array();
+		// check pixcore defaults
+		if (isset($defaults['processor']['preupdate'])) {
+			$hooks = $defaults['processor']['preupdate'];
+		}
+		// check plugin defaults
+		if (isset($plugin_hooks['preupdate'])) {
+			$hooks = array_merge($hooks, $plugin_hooks['preupdate']);
+		}
+
+		// Execute hooks
+		// -------------
+
+		foreach ($hooks as $rule) {
+			$callback = pixcore::callback($rule, $this->meta);
+			call_user_func($callback, $input, $this);
+		}
+	}
+
+	/**
+	 * Execute postupdate hooks on input.
+	 */
+	protected function postupdate($input)
+	{
+		$defaults = pixcore::defaults();
+		$plugin_hooks = $this->meta->get('processor', array('preupdate' => array(), 'postupdate' => array()));
+
+		// Calculate hooks
+		// ---------------
+
+		$hooks = array();
+		// check pixcore defaults
+		if (isset($defaults['processor']['postupdate'])) {
+			$hooks = $defaults['processor']['postupdate'];
+		}
+		// check plugin defaults
+		if (isset($plugin_hooks['postupdate'])) {
+			$hooks = array_merge($hooks, $plugin_hooks['postupdate']);
+		}
+
+		// Execute hooks
+		// -------------
+
+		foreach ($hooks as $rule) {
+			$callback = pixcore::callback($rule, $this->meta);
+			call_user_func($callback, $input, $this);
+		}
 	}
 
 } # class
