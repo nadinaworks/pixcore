@@ -18,7 +18,7 @@ interface PixcoreForm extends PixcoreHTMLElement {
 	function addtemplatepath($path);
 
 	/**
-	 * @return string
+	 * @return PixcoreFormField
 	 */
 	function field($fieldname);
 

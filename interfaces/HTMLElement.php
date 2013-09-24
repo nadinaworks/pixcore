@@ -10,7 +10,7 @@
  * @author     Pixel Grade Team
  * @copyright  (c) 2013, Pixel Grade Media
  */
-interface PixcoreHTMLElement {
+interface PixcoreHTMLElement extends PixcoreHTMLTag {
 
 	/**
 	 * @param string meta key

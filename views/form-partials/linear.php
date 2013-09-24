@@ -1,7 +1,8 @@
 <?php defined('ABSPATH') or die;
-	/* @var PixcoreForm $form */
-	/* @var PixcoreMeta $conf */
+	/* @var $form PixcoreForm */
+	/* @var $conf PixcoreMeta */
 
+	/* @var $f PixcoreForm */
 	$f = &$form;
 ?>
 

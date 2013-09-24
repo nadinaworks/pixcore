@@ -1,12 +1,12 @@
 <?php defined('ABSPATH') or die;
-	/* @var PixcoreFormField $field */
-	/* @var PixcoreForm $form */
-	/* @var mixed $default */
-	/* @var string $name */
-	/* @var string $idname */
-	/* @var string $label */
-	/* @var string $desc */
-	/* @var string $rendering */
+	/* @var $field     PixcoreFormField */
+	/* @var $form      PixcoreForm  */
+	/* @var $default   mixed */
+	/* @var $name      string */
+	/* @var $idname    string */
+	/* @var $label     string */
+	/* @var $desc      string */
+	/* @var $rendering string  */
 
 	// [!!] a switch is a checkbox that is only ever either on or off; not to
 	// be confused with a fully functional checkbox which may be many values
