@@ -34,8 +34,8 @@ class HTMLTagTest extends PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	function htmlattributes() {
-		$tag = pixcore::instance('PixcoreHTMLTag', array('id' => 'test', 'x' => 'y'));
-		$this->assertEquals('id="test" x="y"', $tag->htmlattributes());
+		$tag = pixcore::instance('PixcoreHTMLTag', array('id' => 'test', 'x' => 'y', 'z' => '', 'class' => array('x', 'y', 'z')));
+		$this->assertEquals('id="test" x="y" z class="x y z"', $tag->htmlattributes());
 	}
 
 } # config
