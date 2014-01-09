@@ -33,6 +33,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase {
 				'test1' => array
 					(
 						'type' => 'counter',
+						'checks' => array('is_numeric'),
 					),
 				'test2' => array
 					(
