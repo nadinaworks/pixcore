@@ -39,6 +39,7 @@ class ValidatorTest extends PHPUnit_Framework_TestCase {
 						'type' => 'text',
 					),
 			);
+		$config = pixcore::instance('PixcoreMeta', array('checks' => array('counter' => array('is_numeric', 'not_empty'))));
 		$fields = pixcore::instance('PixcoreMeta', $fields);
 		$validator = pixcore::instance('PixcoreValidator', $config, $fields);
 		$errors = $validator->validate($input);
