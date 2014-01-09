@@ -68,7 +68,8 @@ class pixcore {
 	 */
 	static function form($config, $processor) {
 		$form = self::instance('PixcoreForm', $config);
-		$form->autocomplete($processor->data());
+		$data = $processor->data();
+		$data === null or $form->autocomplete($processor->data());
 		$form->errors($processor->errors());
 		return $form;
 	}

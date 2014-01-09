@@ -39,6 +39,7 @@ class PixcoreFormImpl extends PixcoreHTMLElementImpl implements PixcoreForm {
 		$this->autocomplete = pixcore::instance('PixcoreMeta', array());
 
 		// setup fields
+		isset($config['fields']) or $config['fields'] = array();
 		$this->fields = pixcore::instance('PixcoreMeta', $config['fields']);
 		unset($config['fields']);
 
@@ -46,6 +47,7 @@ class PixcoreFormImpl extends PixcoreHTMLElementImpl implements PixcoreForm {
 		parent::configure($config);
 
 		// setup paths
+		isset($config['template-paths']) or $config['template-paths'] = array();
 		$this->setmeta('template-paths', $config['template-paths']);
 
 		// @todo CLEANUP the empty action should redirect to the same page but
