@@ -30,6 +30,9 @@ class coreTest extends PHPUnit_Framework_TestCase {
 		pixcore::use_impl('PixcoreMeta', 'PixcoreMetaImpl');
 	}
 
+	/**
+	 * @test
+	 */
 	function shorthands() {
 		$processor = pixcore::processor(array());
 		$this->assertEquals(true, $processor instanceof PixcoreProcessor);
