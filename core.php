@@ -110,7 +110,7 @@ class pixcore {
 	 * Sets a custom plugin path; required in non-standard plugin structures.
 	 */
 	static function setpluginpath($path) {
-		self::$pluginpath = $path;
+		self::$pluginpath = rtrim($path, '/\\').'/';
 	}
 
 
