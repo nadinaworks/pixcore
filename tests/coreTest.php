@@ -30,6 +30,13 @@ class coreTest extends PHPUnit_Framework_TestCase {
 		pixcore::use_impl('PixcoreMeta', 'PixcoreMetaImpl');
 	}
 
+	function shorthands() {
+		$processor = pixcore::processor(array());
+		$this->assertEquals(true, $processor instanceof PixcoreProcessor);
+		$form = pixcore::form(array(), $processor);
+		$this->assertEquals(true, $form instanceof PixcoreForm);
+	}
+
 	/**
 	 * @test
 	 */
@@ -90,6 +97,8 @@ class coreTest extends PHPUnit_Framework_TestCase {
 		$meta = pixcore::instance('PixcoreMeta', array());
 		$callback = pixcore::callback('is_numeric', $meta);
 		$this->assertEquals('pixcore_validate_is_numeric', $callback);
+		$this->setExpectedException('Exception');
+		pixcore::callback('non-existent-callback', $meta);
 	}
 
 	/**
@@ -106,6 +115,8 @@ class coreTest extends PHPUnit_Framework_TestCase {
 		$oldtextdomain = pixcore::textdomain();
 		pixcore::settextdomain('test_txtd');
 		$this->assertEquals('test_txtd', pixcore::textdomain());
+		pixcore::settextdomain(null);
+		$this->assertEquals('pixcore_txtd', pixcore::textdomain());
 		pixcore::settextdomain($oldtextdomain);
 	}
 
