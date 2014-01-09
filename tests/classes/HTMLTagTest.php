@@ -10,7 +10,7 @@
  * @author     Pixel Grade Team
  * @copyright  (c) 2014, Pixel Grade Media
  */
-class ValidatorTest extends PHPUnit_Framework_TestCase {
+class HTMLTagTest extends PHPUnit_Framework_TestCase {
 
 	/**
 	 * @test
