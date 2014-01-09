@@ -1,4 +1,6 @@
-<?php defined('ABSPATH') or die;
+<?php
+
+	define('ABSPATH', 'abspath');
 
 	// ensure EXT is defined
 	if ( ! defined('EXT')) {
@@ -7,5 +9,5 @@
 
 	error_reporting(-1);
 
-	$basepath = realpath('..').DIRECTORY_SEPARATOR;
+	$basepath = realpath(__DIR__).'/../';
 	require $basepath.'bootstrap'.EXT;
