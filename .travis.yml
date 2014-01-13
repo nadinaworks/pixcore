@@ -4,9 +4,11 @@ php:
   - 5.2
 
 before_script:
+  - pwd
   - sudo apt-get install ruby
   - gem install nyx
 
 script:
+  - pwd
   - nyx check:php .
   - phpunit --bootstrap tests/bootstrap.php tests
