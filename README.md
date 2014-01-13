@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/pixelgrade/pixcore.png?branch=development)](https://travis-ci.org/pixelgrade/pixcore)
+
 See: https://github.com/srcspider/mock-wp-plugin/ for example/template.
 
 
