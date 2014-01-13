@@ -1,8 +1,11 @@
 path = ARGV[0]
 
-puts
-puts " PHP 5.2 syntax check"
-puts " --------------------"
+// imediate output
+$stdout.sync = $stderr.sync = true
+
+$stdout.puts
+$stdout.puts " PHP 5.2 syntax check"
+$stdout.puts " --------------------"
 
 def scan(path)
     errors = 0
@@ -14,11 +17,11 @@ def scan(path)
             if file =~ /.*\.php$/
                 msg = `php52 -l #{file}`
                 if msg =~ /^No syntax errors.*/
-                    puts "    valid #{file}"
+#                    $stdout.puts "    valid #{file}"
                 else # invalid
-                    puts "  invalid #{file}"
-                    puts msg.strip
-                    puts
+                    $stdout.puts "  invalid #{file}"
+                    $stdout.puts msg.strip
+                    $stdout.puts
                     errors += 1
                 end
             end
