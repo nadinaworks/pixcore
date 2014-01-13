@@ -1,5 +1,0 @@
-#!/bin/sh
-echo " preparing environment"
-rm -rf reports/
-echo " running phpunit..."
-phpunit --bootstrap tests/bootstrap.php --coverage-html reports/code-coverage tests
