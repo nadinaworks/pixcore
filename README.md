@@ -1,3 +1,5 @@
+See: https://github.com/srcspider/mock-wp-plugin/ for example/template.
+
 
 Field Configuration Spec
 ========================
