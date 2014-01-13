@@ -30,4 +30,7 @@ def scan(path)
     return errors
 end
 
+$stdout.puts " finished checking files"
+$stdout.puts
+
 exit scan(path)
