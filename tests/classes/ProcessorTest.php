@@ -138,4 +138,61 @@ class ProcessorTest extends PHPUnit_Framework_TestCase {
 		$proc->errors();
 	}
 
+	/**
+	 * @test
+	 */
+	function performed_update() {
+		$conf = array
+			(
+				'settings-key' => 'plugin-settings',
+				'fields' => array
+					(
+						'testfield' => array('type' => 'text')
+					),
+				'processor' => array
+					(
+							// callback signature: (array $input, PixcoreProcessor $processor)
+
+							'preupdate' => array
+									(
+											// callbacks to run before update process
+											// cleanup and validation has been performed on data
+
+											'preupdate_example',
+									),
+							'postupdate' => array
+									(
+											// callbacks to run post update
+
+											'postupdate_example',
+									),
+					),
+				'callbacks' => array
+					(
+					// processor update hooks
+							'preupdate_example' => 'void_hook',
+							'postupdate_example' => 'void_hook',
+					),
+			);
+		$proc = pixcore::instance('PixcoreProcessor', $conf);
+		$this->assertEquals(false, $proc->performed_update());
+	}
+
+	/**
+	 * @test
+	 */
+	function ok() {
+		$_SERVER['REQUEST_METHOD'] = 'POST';
+		$conf = array
+			(
+				'settings-key' => 'plugin-settings',
+				'fields' => array
+					(
+						'testfield' => array('type' => 'text')
+					)
+			);
+		$proc = pixcore::instance('PixcoreProcessor', $conf);
+		$this->assertEquals(true, $proc->ok());
+	}
+
 } # class

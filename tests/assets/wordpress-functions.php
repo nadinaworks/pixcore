@@ -20,4 +20,6 @@
 
 	function update_option($key, $value) {}
 
+	function void_hook() {}
+
 	// @codeCoverageIgnoreEnd
