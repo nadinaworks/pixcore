@@ -1,3 +1,5 @@
+[![Build Status](http://jenkins.pixelgrade.com:8080/buildStatus/icon?job=pixcore)](http://jenkins.pixelgrade.com:8080/job/pixcore/)
+
 See: https://github.com/srcspider/mock-wp-plugin/ for example/template.
 
 
