@@ -73,6 +73,13 @@ class PixcoreProcessorImpl implements PixcoreProcessor {
 		return $fields;
 	}
 
+	/**
+	 * @return array
+	 */
+	function fields() {
+		return $this->fields;
+	}
+
 	/** @var array status */
 	protected $status = null;
 
