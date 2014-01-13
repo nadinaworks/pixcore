@@ -9,6 +9,6 @@
 
 	error_reporting(-1);
 
-	$testspath = realpath(__DIR__).'/';
+	$testspath = realpath(dirname(__FILE__)).'/';
 	require $testspath.'assets/wordpress-functions'.EXT;
 	require $testspath.'../bootstrap'.EXT;
