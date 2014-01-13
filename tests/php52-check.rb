@@ -1,6 +1,6 @@
 path = ARGV[0]
 
-// imediate output
+# imediate output
 $stdout.sync = $stderr.sync = true
 
 $stdout.puts
