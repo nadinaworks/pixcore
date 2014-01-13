@@ -49,14 +49,18 @@ class FormFieldTest extends PHPUnit_Framework_TestCase {
 
 		$form->addtemplatepath(pixcore::corepath().'tests/assets/form-partials/');
 		try {
-			// testing rendering via __toString too...
-			$test = '' . $form->field('test2', array('type' => 'no-such-type'));
+			$form->field('test2', array('type' => 'no-such-type'))->render();
 			throw new Exception('Failed asserting pattern exception.');
 		}
 		catch (Exception $e) {
 			$expt = 'Failed to match any pattern for field [test2] of type no-such-type';
 			$this->assertEquals($expt, $e->getMessage());
 		}
+
+		// working example
+		$render = '' . $form->field('test2', array('type' => 'text'));
+		$expt = '<input name="test2" id="test2" type="text"/>';
+		$this->assertEquals($expt, trim($render));
 	}
 
 } # class
