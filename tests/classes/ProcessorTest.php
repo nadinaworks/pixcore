@@ -165,6 +165,11 @@ class ProcessorTest extends PHPUnit_Framework_TestCase {
 		$proc = pixcore::instance('PixcoreProcessor', $conf);
 		$this->assertEquals(array(), $proc->errors());
 
+		$conf['settings-key'] = 'faulty-plugin-settings';
+		$conf['debug'] = false;
+		$proc = pixcore::instance('PixcoreProcessor', $conf);
+		$this->assertEquals(array(), $proc->errors());
+
 		$conf['debug'] = true;
 		$proc = pixcore::instance('PixcoreProcessor', $conf);
 		$this->setExpectedException('Exception');

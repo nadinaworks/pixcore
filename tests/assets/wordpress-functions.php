@@ -13,6 +13,8 @@
 		switch ($key) {
 			case 'plugin-settings':
 				return array();
+			case 'faulty-plugin-settings':
+				return false;
 			default:
 				throw new Exception('Missing key ['.$key.'] in database');
 		}
