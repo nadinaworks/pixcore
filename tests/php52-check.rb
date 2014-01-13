@@ -5,7 +5,7 @@ $stdout.sync = $stderr.sync = true
 
 $stdout.puts
 $stdout.puts " PHP 5.2 syntax check"
-$stdout.puts " --------------------"
+$stdout.puts " ----------------------------------------------------"
 
 def scan(path)
     errors = 0
@@ -31,6 +31,7 @@ def scan(path)
 end
 
 $stdout.puts " finished checking files"
+$stdout.puts " ----------------------------------------------------"
 $stdout.puts
 
 exit scan(path)
