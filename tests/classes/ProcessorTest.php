@@ -76,7 +76,31 @@ class ProcessorTest extends PHPUnit_Framework_TestCase {
 				'fields' => array
 					(
 						'testfield' => array('type' => 'text')
-					)
+					),
+				'processor' => array
+					(
+						// callback signature: (array $input, PixcoreProcessor $processor)
+
+						'preupdate' => array
+								(
+										// callbacks to run before update process
+										// cleanup and validation has been performed on data
+
+										'preupdate_example',
+								),
+						'postupdate' => array
+								(
+										// callbacks to run post update
+
+										'postupdate_example',
+								),
+					),
+				'callbacks' => array
+					(
+						// processor update hooks
+							'preupdate_example' => 'void_hook',
+							'postupdate_example' => 'void_hook',
+					),
 			);
 		$proc = pixcore::instance('PixcoreProcessor', $conf);
 		$status = array
@@ -148,30 +172,6 @@ class ProcessorTest extends PHPUnit_Framework_TestCase {
 				'fields' => array
 					(
 						'testfield' => array('type' => 'text')
-					),
-				'processor' => array
-					(
-							// callback signature: (array $input, PixcoreProcessor $processor)
-
-							'preupdate' => array
-									(
-											// callbacks to run before update process
-											// cleanup and validation has been performed on data
-
-											'preupdate_example',
-									),
-							'postupdate' => array
-									(
-											// callbacks to run post update
-
-											'postupdate_example',
-									),
-					),
-				'callbacks' => array
-					(
-					// processor update hooks
-							'preupdate_example' => 'void_hook',
-							'postupdate_example' => 'void_hook',
 					),
 			);
 		$proc = pixcore::instance('PixcoreProcessor', $conf);
