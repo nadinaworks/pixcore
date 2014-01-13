@@ -75,7 +75,7 @@ class ProcessorTest extends PHPUnit_Framework_TestCase {
 			(
 				'fields' => array
 					(
-						'testfield' => array('type' => 'text')
+						'testfield' => array('type' => 'switch', 'cleanup' => array('custom_field_cleanup'))
 					),
 				'processor' => array
 					(
@@ -95,8 +95,17 @@ class ProcessorTest extends PHPUnit_Framework_TestCase {
 										'postupdate_example',
 								),
 					),
+				'cleanup' => array
+					(
+						'switch' => array
+							(
+								'custom_cleanup',
+							),
+					),
 				'callbacks' => array
 					(
+							'custom_field_cleanup' => 'void_hook',
+							'custom_cleanup' => 'void_hook',
 						// processor update hooks
 							'preupdate_example' => 'void_hook',
 							'postupdate_example' => 'void_hook',
