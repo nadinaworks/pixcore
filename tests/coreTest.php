@@ -100,8 +100,14 @@ class coreTest extends PHPUnit_Framework_TestCase {
 		$meta = pixcore::instance('PixcoreMeta', array());
 		$callback = pixcore::callback('is_numeric', $meta);
 		$this->assertEquals('pixcore_validate_is_numeric', $callback);
-		$this->setExpectedException('Exception');
-		pixcore::callback('non-existent-callback', $meta);
+
+		try {
+			pixcore::callback('non-existent-callback', $meta);
+			throw new Exception('Failed asserting missing callback exception.');
+		}
+		catch (Exception $e) {
+			$this->assertEquals('Missing callback for [non-existent-callback].', $e->getMessage());
+		}
 	}
 
 	/**

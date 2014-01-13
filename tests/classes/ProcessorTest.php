@@ -172,8 +172,14 @@ class ProcessorTest extends PHPUnit_Framework_TestCase {
 
 		$conf['debug'] = true;
 		$proc = pixcore::instance('PixcoreProcessor', $conf);
-		$this->setExpectedException('Exception');
-		$proc->errors();
+
+		try {
+			$proc->errors();
+			throw new Exception('Failed asserting option retrieval exception.');
+		}
+		catch (Exception $e) {
+			$this->assertEquals('Unable to retrieve options.', $e->getMessage());
+		}
 	}
 
 	/**
