@@ -55,4 +55,14 @@ class ValidatorTest extends PHPUnit_Framework_TestCase {
 		$this->assertEquals(false, empty($errors));
 	}
 
+	/**
+	 * @test
+	 */
+	function error_message() {
+		$config = pixcore::instance('PixcoreMeta', array());
+		$fields = pixcore::instance('PixcoreMeta', array());
+		$validator = pixcore::instance('PixcoreValidator', $config, $fields);
+		$this->assertEquals('Field is required.', $validator->error_message('not_empty'));
+	}
+
 } # class

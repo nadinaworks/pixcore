@@ -69,6 +69,7 @@ class ProcessorTest extends PHPUnit_Framework_TestCase {
 	 * @test
 	 */
 	function run_method() {
+		// faulty configuration (missing settings-key)
 		$_SERVER['REQUEST_METHOD'] = 'POST';
 		$conf = array
 			(
@@ -87,6 +88,7 @@ class ProcessorTest extends PHPUnit_Framework_TestCase {
 			);
 		$this->assertEquals($status, $proc->status());
 
+		// correct configuration
 		$conf['settings-key'] = 'plugin-settings';
 		$proc = pixcore::instance('PixcoreProcessor', $conf);
 		$status = array
@@ -96,6 +98,33 @@ class ProcessorTest extends PHPUnit_Framework_TestCase {
 				'dataupdate' => true,
 			);
 		$this->assertEquals($status, $proc->status());
+
+		// re-run test
+		$proc->run();
+		$this->assertEquals($status, $proc->status());
+
+		// failed validation
+		$_POST = array('testfield' => '');
+		$conf['fields']['testfield']['type'] = 'counter';
+		$proc = pixcore::instance('PixcoreProcessor', $conf);
+
+		$errors = array
+			(
+				'testfield' => array
+					(
+						'is_numeric' => 'Numberic value required.',
+						'not_empty' => 'Field is required.'
+					),
+			);
+
+		$this->assertEquals($errors, $proc->errors());
+
+		// passed validation
+		$_POST = array('testfield' => '');
+		$conf['fields']['testfield']['type'] = 'text';
+		$proc = pixcore::instance('PixcoreProcessor', $conf);
+
+		$this->assertEquals(array(), $proc->errors());
 	}
 
 } # class

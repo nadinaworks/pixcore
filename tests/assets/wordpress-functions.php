@@ -7,7 +7,7 @@
 
 	// @codeCoverageIgnoreStart
 
-	function __() {}
+	function __($text, $textdomain) { return $text; }
 
 	function get_option($key) {
 		switch ($key) {
