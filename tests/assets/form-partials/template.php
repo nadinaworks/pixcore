@@ -1,0 +1,1 @@
+passed: <?php echo $conf->get('test1') ?>
