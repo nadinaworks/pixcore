@@ -170,6 +170,11 @@ class PixcoreFormImpl extends PixcoreHTMLElementImpl implements PixcoreForm {
 	}
 
 	/**
+	 * eg. a linear template might recieve a bunch of fields and display them
+	 * one bellow each other
+	 *
+	 * Template paths need to be absolute paths.
+	 *
 	 * @param string template path
 	 * @param array  configuration
 	 * @return string
