@@ -14,7 +14,7 @@
 			case 'plugin-settings':
 				return array();
 			default:
-				return array();
+				throw new Exception('Missing key ['.$key.'] in database');
 		}
 	}
 
